@@ -1,5 +1,5 @@
 ﻿
-Create PROCEDURE [dbo].[CheckCodeValidity]
+Create PROCEDURE [CheckCodeValidity]
     @Code NVARCHAR(8)
    
 AS
