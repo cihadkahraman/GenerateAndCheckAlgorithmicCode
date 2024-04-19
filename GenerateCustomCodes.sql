@@ -22,8 +22,6 @@ BEGIN
 		--ABS(CHECKSUM(NEWID())) unique ve pozitif sayı üretir. Checksum sayesinde sayı her zaman int değer aralığındadır.
         SELECT @C1 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1),
                @C6 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1)
-			   PRINT @C1
-			   PRINT @C6 + ' POINT1'
 			   --Önce kodun 1. ve 6. hanesi üretilir ve uygunlukları kontrol edilir.
 			  IF (ASCII(@C1) * ASCII(@C6) % 15 = 7) AND ASCII(@C6) > ASCII(@C1)
 			  BEGIN
@@ -32,8 +30,6 @@ BEGIN
 				--Ardından 2. ve 8. hane üretilip kontrol edilir ve bu şekilde devam eder.
 				SELECT @C2 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1),
 						 @C8 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1)
-						 PRINT @C2
-						 PRINT @C8 + ' POINT2'
 						 IF POWER((ASCII(@C2) + ASCII(@C8)),2) % 15 = 10 AND ASCII(@C2) > ASCII(@C8)
 						 BEGIN
 							SET @Count2_8 = 1
@@ -42,8 +38,6 @@ BEGIN
 							BEGIN
 							SELECT  @C3 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1),
 									@C5 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1)
-									PRINT @C3
-									PRINT @C5 + ' POINT3'
 									IF ASCII(@C3) * ASCII(@C5) % 15 = 2 AND ASCII(@C5) > ASCII(@C3)
 									BEGIN
 										SET @Count3_5 = 1
@@ -51,8 +45,6 @@ BEGIN
 										BEGIN
 										SELECT @C4 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1),
 											   @C7 = SUBSTRING(@ValidChars, ABS(CHECKSUM(NEWID())) % LEN(@ValidChars) + 1, 1)
-											   PRINT @C4
-											   PRINT @C7 + ' POINT4'
 											   IF ASCII(@C4) * ASCII(@C7) % 3 = 0 AND ASCII(@C4) > ASCII(@C7)
 											   BEGIN
 											   SET @Count4_7 = 1
@@ -60,8 +52,6 @@ BEGIN
 											   --Uygun kod üretilince @Codes değişkenine atılır ancak burada duplicate kod varsa catch'e düşer
 													INSERT INTO @Codes (Code) VALUES (@C1 + @C2 + @C3 + @C4 + @C5 + @C6 + @C7 + @C8)
 													SET @Count = @Count + 1
-													PRINT @Count
-													PRINT 'POINT5'
 													END TRY
 													BEGIN CATCH
 													END CATCH
