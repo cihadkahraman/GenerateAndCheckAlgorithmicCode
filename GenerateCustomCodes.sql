@@ -1,5 +1,5 @@
 ﻿
-Create PROCEDURE [dbo].[GenerateCustomCodes]
+Create PROCEDURE [GenerateCustomCodes]
     @NumberOfCodes INT
 AS
 BEGIN
